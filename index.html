@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Enem2026 Parte I — Física</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="stage">
+
+    <header>
+      <div class="brand-group">
+        <div class="title-wrap">
+
+          <h1>Enem2026 I</h1>
+
+          <p>Física</p>
+
+          <p>Profº. Jeová Lacerda</p>
+          <p>Profº. Valdeck Francisco</p>
+
+          <p>EREM Beberibe</p>
+          <p>Escola Erundina</p>
+          <p>GRE Recife Norte</p>
+
+        </div>
+      </div>
+    </header>
+
+
+    <div id="quiz-box" class="slide-card">
+
+      <div class="progress">
+        <div class="bar" id="progress-bar"></div>
+      </div>
+
+      <h3 id="question-counter"></h3>
+
+      <h2 id="question"></h2>
+
+      <ul id="options" class="bullets"></ul>
+
+      <button id="next-btn" class="btn">Próxima</button>
+
+    </div>
+
+
+    <div id="result-box" class="slide-card hidden">
+
+      <h2>🎉 Resultado Final Parte I</h2>
+
+      <p class="result-score" style="padding: 1rem 0;">
+        Você acertou
+        <strong><span id="score"></span></strong>
+        de
+        <strong><span id="total"></span></strong>
+        questões
+      </p>
+
+      <div class="result-progress">
+        <div id="result-bar"></div>
+      </div>
+
+      <p id="result-percent"></p>
+
+      <p id="result-message"></p>
+
+      <button id="restart-btn" class="btn secondary" style="margin: 1rem 0">
+        Jogar Novamente
+      </button>
+
+      <a href="parte2.html" class="btn" style="margin:1rem 0;">
+        Ir para Parte 2 →
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    const questions = [
+
+      {
+        "question": "01. A Física é a ciência que estuda:",
+        "options": [
+          "A) Apenas os seres vivos.",
+          "B) Os fenômenos da natureza, a matéria e a energia.",
+          "C) Somente os planetas.",
+          "D) Apenas os elementos químicos."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "02. O principal objetivo da Física é:",
+        "options": [
+          "A) Decorar fórmulas.",
+          "B) Compreender e explicar os fenômenos naturais.",
+          "C) Estudar apenas os animais.",
+          "D) Fazer experiências sem observar resultados."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "03. Qual das alternativas representa uma grandeza física?",
+        "options": [
+          "A) Alegria",
+          "B) Massa",
+          "C) Amor",
+          "D) Coragem"
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "04. No Sistema Internacional de Unidades (SI), a unidade de comprimento é:",
+        "options": [
+          "A) Quilograma",
+          "B) Litro",
+          "C) Metro",
+          "D) Segundo"
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "05. A unidade de tempo no Sistema Internacional é:",
+        "options": [
+          "A) Hora",
+          "B) Minuto",
+          "C) Segundo",
+          "D) Dia"
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "06. Qual instrumento é utilizado para medir o tempo?",
+        "options": [
+          "A) Régua",
+          "B) Cronômetro",
+          "C) Balança",
+          "D) Termômetro"
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "07. A Cinemática é o ramo da Física que estuda:",
+        "options": [
+          "A) O calor.",
+          "B) A eletricidade.",
+          "C) O movimento dos corpos sem analisar suas causas.",
+          "D) O som."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "08. Quando um objeto muda de posição em relação a um referencial, dizemos que ele está:",
+        "options": [
+          "A) Em repouso.",
+          "B) Em movimento.",
+          "C) Congelado.",
+          "D) Parado."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "09. Um carro estacionado em relação ao solo está:",
+        "options": [
+          "A) Em movimento.",
+          "B) Em repouso.",
+          "C) Acelerado.",
+          "D) Em queda livre."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "10. Referencial é:",
+        "options": [
+          "A) O peso de um corpo.",
+          "B) Um ponto ou sistema usado para determinar se há movimento ou repouso.",
+          "C) A velocidade de um objeto.",
+          "D) O tempo gasto em um percurso."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "11. A trajetória de um móvel corresponde:",
+        "options": [
+          "A) À sua velocidade.",
+          "B) Ao caminho percorrido durante o movimento.",
+          "C) Ao tempo de viagem.",
+          "D) À sua massa."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "12. O deslocamento corresponde:",
+        "options": [
+          "A) Ao caminho total percorrido.",
+          "B) À distância entre a posição inicial e a posição final.",
+          "C) Ao tempo gasto.",
+          "D) À velocidade máxima."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "13. A velocidade média relaciona:",
+        "options": [
+          "A) Massa e força.",
+          "B) Distância percorrida e tempo gasto.",
+          "C) Peso e altura.",
+          "D) Energia e trabalho."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "14. Um móvel possui velocidade constante quando:",
+        "options": [
+          "A) Sua velocidade varia a todo instante.",
+          "B) Sua velocidade permanece a mesma durante o movimento.",
+          "C) Está parado.",
+          "D) Sua massa aumenta."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "15. Quando a velocidade aumenta com o tempo, o móvel está:",
+        "options": [
+          "A) Desacelerado.",
+          "B) Em repouso.",
+          "C) Acelerado.",
+          "D) Parado."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "16. Quando um carro diminui sua velocidade até parar, ocorre:",
+        "options": [
+          "A) Aceleração positiva.",
+          "B) Desaceleração.",
+          "C) Queda livre.",
+          "D) Movimento uniforme."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "17. Qual das alternativas representa um exemplo de movimento?",
+        "options": [
+          "A) Um livro sobre a mesa.",
+          "B) Uma bicicleta andando na rua.",
+          "C) Uma pedra parada no chão.",
+          "D) Um poste de iluminação."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "18. A velocidade é considerada uma grandeza:",
+        "options": [
+          "A) Física.",
+          "B) Química.",
+          "C) Biológica.",
+          "D) Geográfica."
+        ],
+        "answer": 0
+      },
+
+      {
+        "question": "19. O movimento depende da escolha de um:",
+        "options": [
+          "A) Termômetro.",
+          "B) Referencial.",
+          "C) Cronômetro.",
+          "D) Microscópio."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "20. Qual das alternativas apresenta corretamente duas grandezas fundamentais do Sistema Internacional?",
+        "options": [
+          "A) Massa e tempo.",
+          "B) Peso e força.",
+          "C) Energia e potência.",
+          "D) Pressão e volume."
+        ],
+        "answer": 0
+      },
+
+      {
+        "question": "21. A Dinâmica é a parte da Física que estuda:",
+        "options": [
+          "A) O calor.",
+          "B) As causas do movimento dos corpos.",
+          "C) A luz.",
+          "D) O som."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "22. Segundo a Primeira Lei de Newton, um corpo tende a:",
+        "options": [
+          "A) Aumentar sua velocidade.",
+          "B) Diminuir sua massa.",
+          "C) Permanecer em repouso ou em movimento retilíneo uniforme, se nenhuma força resultante atuar sobre ele.",
+          "D) Parar imediatamente."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "23. A Primeira Lei de Newton também é conhecida como Lei da:",
+        "options": [
+          "A) Gravitação.",
+          "B) Inércia.",
+          "C) Ação e reação.",
+          "D) Energia."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "24. A unidade de força no Sistema Internacional (SI) é:",
+        "options": [
+          "A) Joule (J).",
+          "B) Watt (W).",
+          "C) Newton (N).",
+          "D) Pascal (Pa)."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "25. Quanto maior a massa de um corpo:",
+        "options": [
+          "A) Menor será sua inércia.",
+          "B) Maior será sua inércia.",
+          "C) Menor será seu peso.",
+          "D) Maior será sua velocidade."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "26. Segundo a Terceira Lei de Newton, para toda ação existe:",
+        "options": [
+          "A) Uma força menor.",
+          "B) Uma reação de mesma intensidade e direção, mas sentido oposto.",
+          "C) Uma força nula.",
+          "D) Apenas movimento."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "27. A força peso é causada:",
+        "options": [
+          "A) Pelo vento.",
+          "B) Pela gravidade.",
+          "C) Pelo atrito.",
+          "D) Pela eletricidade."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "28. Quando várias forças atuam sobre um corpo, a soma de todas elas é chamada de:",
+        "options": [
+          "A) Energia.",
+          "B) Trabalho.",
+          "C) Força resultante.",
+          "D) Potência."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "29. O trabalho mecânico ocorre quando:",
+        "options": [
+          "A) Existe uma força e há deslocamento do corpo.",
+          "B) O corpo permanece parado.",
+          "C) Não existe força.",
+          "D) O tempo aumenta."
+        ],
+        "answer": 0
+      },
+
+      {
+        "question": "30. A unidade de trabalho no Sistema Internacional é:",
+        "options": [
+          "A) Newton.",
+          "B) Metro.",
+          "C) Joule.",
+          "D) Watt."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "31. O trabalho realizado por uma força pode ser:",
+        "options": [
+          "A) Apenas positivo.",
+          "B) Apenas negativo.",
+          "C) Positivo, negativo ou nulo.",
+          "D) Apenas igual a zero."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "32. Energia é a capacidade de:",
+        "options": [
+          "A) Produzir luz apenas.",
+          "B) Realizar trabalho.",
+          "C) Produzir calor somente.",
+          "D) Medir a massa."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "33. A energia que um corpo possui devido ao seu movimento é chamada de:",
+        "options": [
+          "A) Energia térmica.",
+          "B) Energia potencial.",
+          "C) Energia cinética.",
+          "D) Energia elétrica."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "34. A energia armazenada devido à posição de um corpo é denominada:",
+        "options": [
+          "A) Energia sonora.",
+          "B) Energia potencial.",
+          "C) Energia luminosa.",
+          "D) Energia química."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "35. Quando uma bola é lançada para cima, durante a subida ocorre:",
+        "options": [
+          "A) A energia cinética aumenta e a potencial diminui.",
+          "B) A energia potencial aumenta e a cinética diminui.",
+          "C) As duas energias aumentam.",
+          "D) As duas energias desaparecem."
+        ],
+        "answer": 1
+      }
+
+    ];
+
+
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const nextBtn = document.getElementById("next-btn");
+    const progressBar = document.getElementById("progress-bar");
+
+    const quizBox = document.getElementById("quiz-box");
+    const resultBox = document.getElementById("result-box");
+
+    const scoreEl = document.getElementById("score");
+    const totalEl = document.getElementById("total");
+
+    const restartBtn = document.getElementById("restart-btn");
+    const questionCounterEl =
+      document.getElementById("question-counter");
+
+    let currentQuestion = 0;
+    let score = 0;
+
+
+    totalEl.textContent = questions.length;
+
+
+    function loadQuestion() {
+
+      const q = questions[currentQuestion];
+
+      questionEl.innerHTML = q.question;
+
+      optionsEl.innerHTML = "";
+
+
+      q.options.forEach((opt, i) => {
+
+        const li = document.createElement("li");
+
+        li.textContent = opt;
+
+        li.classList.add("option");
+
+        li.addEventListener("click", () => {
+          selectOption(i);
+        });
+
+        optionsEl.appendChild(li);
+
+      });
+
+
+      nextBtn.style.display = "none";
+
+      updateProgress();
+
+
+      questionCounterEl.textContent =
+        `Questão ${currentQuestion + 1} de ${questions.length}`;
+
+    }
+
+
+    function selectOption(index) {
+
+      const q = questions[currentQuestion];
+
+      const allOptions =
+        document.querySelectorAll(".option");
+
+
+      allOptions.forEach((opt, i) => {
+
+        if (i === q.answer) {
+          opt.classList.add("correct");
+        }
+
+        if (i === index && i !== q.answer) {
+          opt.classList.add("wrong");
+        }
+
+        opt.style.pointerEvents = "none";
+
+      });
+
+
+      if (index === q.answer) {
+        score++;
+      }
+
+
+      nextBtn.style.display = "block";
+
+    }
+
+
+    nextBtn.addEventListener("click", () => {
+
+      currentQuestion++;
+
+
+      if (currentQuestion < questions.length) {
+
+        loadQuestion();
+
+      } else {
+
+        showResult();
+
+      }
+
+    });
+
+
+    function updateProgress() {
+
+      const pct =
+        ((currentQuestion) / questions.length) * 100;
+
+      progressBar.style.width = pct + "%";
+
+    }
+
+
+    function showResult() {
+
+      quizBox.classList.add("hidden");
+
+      resultBox.classList.remove("hidden");
+
+
+      scoreEl.textContent = score;
+
+
+      const percent =
+        Math.round((score / questions.length) * 100);
+
+
+      const resultBar =
+        document.getElementById("result-bar");
+
+      const resultPercent =
+        document.getElementById("result-percent");
+
+      const resultMessage =
+        document.getElementById("result-message");
+
+
+      resultBar.style.width = percent + "%";
+
+      resultPercent.textContent =
+        percent + "% de aproveitamento";
+
+
+      let msg =
+        percent >= 70
+          ? "👏 Muito bom!"
+          : "📚 Revise o conteúdo.";
+
+
+      resultMessage.textContent = msg;
+
+    }
+
+
+    restartBtn.addEventListener("click", () => {
+
+      score = 0;
+
+      currentQuestion = 0;
+
+      resultBox.classList.add("hidden");
+
+      quizBox.classList.remove("hidden");
+
+      loadQuestion();
+
+    });
+
+
+    loadQuestion();
+
+  </script>
+
+</body>
+
+</html>

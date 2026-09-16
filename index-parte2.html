@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Enem2026 Parte II — Física</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="stage">
+
+    <header>
+      <div class="brand-group">
+        <div class="title-wrap">
+
+          <h1>Enem2026 II</h1>
+
+          <p>Física</p>
+
+          <p>Profº. Jeová Lacerda</p>
+          <p>Profº. Valdeck Francisco</p>
+
+          <p>EREM Beberibe</p>
+          <p>Escola Erundina</p>
+          <p>GRE Recife Norte</p>
+
+        </div>
+      </div>
+    </header>
+
+
+    <div id="quiz-box" class="slide-card">
+
+      <div class="progress">
+        <div class="bar" id="progress-bar"></div>
+      </div>
+
+      <h3 id="question-counter"></h3>
+
+      <h2 id="question"></h2>
+
+      <ul id="options" class="bullets"></ul>
+
+      <button id="next-btn" class="btn">Próxima</button>
+
+    </div>
+
+
+    <div id="result-box" class="slide-card hidden">
+
+      <h2>🎉 Resultado Final Parte II</h2>
+
+      <p class="result-score" style="padding: 1rem 0;">
+        Você acertou
+        <strong><span id="score"></span></strong>
+        de
+        <strong><span id="total"></span></strong>
+        questões
+      </p>
+
+      <div class="result-progress">
+        <div id="result-bar"></div>
+      </div>
+
+      <p id="result-percent"></p>
+
+      <p id="result-message"></p>
+
+      <button id="restart-btn" class="btn secondary" style="margin: 1rem 0">
+        Jogar Novamente
+      </button>
+
+      <a href="index.html" class="btn" style="margin:1rem 0;">
+        Ir para Parte 1 →
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    const questions = [
+
+      {
+        "question": "36. A transformação de energia ocorre quando:",
+        "options": [
+          "A) Um tipo de energia se converte em outro.",
+          "B) A energia deixa de existir.",
+          "C) A massa desaparece.",
+          "D) O tempo para."
+        ],
+        "answer": 0
+      },
+
+      {
+        "question": "37. Qual das alternativas representa uma fonte de energia?",
+        "options": [
+          "A) Água.",
+          "B) Vento.",
+          "C) Sol.",
+          "D) Todas as alternativas."
+        ],
+        "answer": 3
+      },
+
+      {
+        "question": "38. A energia elétrica utilizada em uma lâmpada transforma-se principalmente em:",
+        "options": [
+          "A) Energia luminosa e térmica.",
+          "B) Energia química.",
+          "C) Energia nuclear.",
+          "D) Energia sonora."
+        ],
+        "answer": 0
+      },
+
+      {
+        "question": "39. Quando empurramos uma caixa e ela não se move, o trabalho realizado sobre a caixa é:",
+        "options": [
+          "A) Positivo.",
+          "B) Negativo.",
+          "C) Nulo.",
+          "D) Máximo."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "40. A conservação da energia afirma que:",
+        "options": [
+          "A) A energia pode ser criada do nada.",
+          "B) A energia pode ser destruída.",
+          "C) A energia não pode ser criada nem destruída, apenas transformada.",
+          "D) A energia desaparece com o tempo."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "41. A Lei da Gravitação Universal foi proposta por:",
+        "options": [
+          "A) Galileu Galilei.",
+          "B) Isaac Newton.",
+          "C) Albert Einstein.",
+          "D) Arquimedes."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "42. A força gravitacional é a força de:",
+        "options": [
+          "A) Repulsão entre os corpos.",
+          "B) Atração entre corpos que possuem massa.",
+          "C) Atrito entre superfícies.",
+          "D) Contato entre objetos."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "43. A força gravitacional entre dois corpos depende:",
+        "options": [
+          "A) Apenas da velocidade.",
+          "B) Apenas da temperatura.",
+          "C) Das massas dos corpos e da distância entre eles.",
+          "D) Apenas do volume."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "44. Quanto maior a distância entre dois corpos, a força gravitacional será:",
+        "options": [
+          "A) Maior.",
+          "B) Menor.",
+          "C) Igual.",
+          "D) Nula."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "45. A força que mantém a Lua em órbita da Terra é:",
+        "options": [
+          "A) Força elétrica.",
+          "B) Força magnética.",
+          "C) Força gravitacional.",
+          "D) Força de atrito."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "46. O peso de um corpo é:",
+        "options": [
+          "A) A quantidade de matéria.",
+          "B) A força gravitacional exercida sobre ele.",
+          "C) O seu volume.",
+          "D) A sua densidade."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "47. A massa de um corpo:",
+        "options": [
+          "A) Varia conforme o planeta.",
+          "B) É sempre igual ao peso.",
+          "C) Permanece constante, independentemente do local.",
+          "D) Depende da gravidade."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "48. No Sistema Internacional, a unidade de peso é:",
+        "options": [
+          "A) Quilograma (kg).",
+          "B) Newton (N).",
+          "C) Metro (m).",
+          "D) Joule (J)."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "49. A aceleração da gravidade na Terra é aproximadamente:",
+        "options": [
+          "A) 2 m/s².",
+          "B) 5 m/s².",
+          "C) 9,8 m/s².",
+          "D) 20 m/s²."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "50. A Estática é o ramo da Física que estuda:",
+        "options": [
+          "A) Os corpos em movimento.",
+          "B) Os corpos em equilíbrio.",
+          "C) A eletricidade.",
+          "D) A óptica."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "51. Um corpo está em equilíbrio quando:",
+        "options": [
+          "A) Está sempre em movimento.",
+          "B) A força resultante sobre ele é igual a zero.",
+          "C) Está acelerado.",
+          "D) Possui grande massa."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "52. Uma pessoa parada sobre o chão está em:",
+        "options": [
+          "A) Movimento acelerado.",
+          "B) Queda livre.",
+          "C) Equilíbrio.",
+          "D) Movimento circular."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "53. Qual das situações representa equilíbrio estático?",
+        "options": [
+          "A) Um carro acelerando.",
+          "B) Um livro parado sobre a mesa.",
+          "C) Uma bola rolando.",
+          "D) Um avião decolando."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "54. Quando duas forças possuem mesma intensidade e sentidos opostos, elas podem:",
+        "options": [
+          "A) Aumentar a velocidade.",
+          "B) Produzir equilíbrio.",
+          "C) Produzir aceleração.",
+          "D) Destruir o corpo."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "55. A unidade de força no Sistema Internacional é:",
+        "options": [
+          "A) Watt.",
+          "B) Newton.",
+          "C) Joule.",
+          "D) Pascal."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "56. O centro de gravidade de um corpo corresponde:",
+        "options": [
+          "A) Ao ponto onde se considera aplicada a força peso.",
+          "B) Ao ponto mais alto do corpo.",
+          "C) Ao centro geométrico apenas.",
+          "D) Ao ponto de maior massa."
+        ],
+        "answer": 0
+      },
+
+      {
+        "question": "57. Quanto maior a massa de um corpo, seu peso será:",
+        "options": [
+          "A) Menor.",
+          "B) Igual.",
+          "C) Maior.",
+          "D) Nulo."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "58. Uma ponte deve permanecer em equilíbrio para:",
+        "options": [
+          "A) Reduzir sua massa.",
+          "B) Garantir estabilidade e segurança.",
+          "C) Diminuir seu comprimento.",
+          "D) Aumentar sua velocidade."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "59. A força normal é:",
+        "options": [
+          "A) A força exercida pela superfície sobre o corpo em contato.",
+          "B) A força da gravidade.",
+          "C) A força do vento.",
+          "D) A força elétrica."
+        ],
+        "answer": 0
+      },
+
+      {
+        "question": "60. A condição necessária para que um corpo permaneça em equilíbrio é:",
+        "options": [
+          "A) A força resultante ser diferente de zero.",
+          "B) A força resultante ser igual a zero.",
+          "C) O corpo estar em movimento.",
+          "D) O corpo possuir grande massa."
+        ],
+        "answer": 1
+      },
+
+      {
+        "question": "61. Um estudante conectou uma lâmpada a uma fonte de tensão de 12 V. Ao medir a corrente elétrica que atravessa a lâmpada, verificou que ela era de 2 A. Considerando que a lâmpada se comporta como um resistor, sua resistência elétrica é:",
+        "options": [
+          "A) 2 Ω",
+          "B) 4 Ω",
+          "C) 6 Ω",
+          "D) 12 Ω",
+          "E) 24 Ω"
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "62. Uma quantidade de 200 g de água é aquecida de 20 °C para 30 °C. Considere o calor específico da água igual a 1 cal/(g · °C). A quantidade de calor recebida pela água é:",
+        "options": [
+          "A) 200 cal",
+          "B) 500 cal",
+          "C) 1 000 cal",
+          "D) 2 000 cal",
+          "E) 3 000 cal"
+        ],
+        "answer": 3
+      },
+
+      {
+        "question": "63. Durante uma viagem, um automóvel percorreu 180 km em 3 horas, mantendo aproximadamente a mesma velocidade. A velocidade média desse automóvel foi de:",
+        "options": [
+          "A) 30 km/h",
+          "B) 45 km/h",
+          "C) 50 km/h",
+          "D) 60 km/h",
+          "E) 90 km/h"
+        ],
+        "answer": 3
+      },
+
+      {
+        "question": "64. Um carrinho de supermercado, de massa 20 kg, é empurrado por uma força resultante horizontal de 40 N. Desprezando outras forças horizontais, a aceleração adquirida pelo carrinho é:",
+        "options": [
+          "A) 0,5 m/s²",
+          "B) 1 m/s²",
+          "C) 2 m/s²",
+          "D) 20 m/s²",
+          "E) 40 m/s²"
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "65. Em uma residência, dois resistores de 6 Ω cada são ligados em paralelo a uma fonte de tensão. A resistência equivalente dessa associação é:",
+        "options": [
+          "A) 3 Ω",
+          "B) 6 Ω",
+          "C) 9 Ω",
+          "D) 12 Ω",
+          "E) 36 Ω"
+        ],
+        "answer": 0
+      },
+
+      {
+        "question": "66. Uma onda sonora apresenta frequência de 500 Hz. Isso significa que, a cada segundo, essa onda realiza:",
+        "options": [
+          "A) 50 oscilações.",
+          "B) 100 oscilações.",
+          "C) 250 oscilações.",
+          "D) 500 oscilações.",
+          "E) 1 000 oscilações."
+        ],
+        "answer": 3
+      },
+
+      {
+        "question": "67. Ao se olhar em um espelho plano, uma pessoa observa sua imagem. Esse fenômeno ocorre porque a luz proveniente da pessoa atinge o espelho e retorna ao ambiente. Considerando a lei da reflexão, o ângulo de reflexão é:",
+        "options": [
+          "A) sempre o dobro do ângulo de incidência.",
+          "B) sempre a metade do ângulo de incidência.",
+          "C) igual ao ângulo de incidência.",
+          "D) sempre igual a 90°.",
+          "E) independente do ângulo de incidência."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "68. Um ciclista e sua bicicleta possuem massa total de 50 kg e deslocam-se com velocidade de 4 m/s. Considerando a expressão da energia cinética, a energia cinética do conjunto é:",
+        "options": [
+          "A) 100 J",
+          "B) 200 J",
+          "C) 300 J",
+          "D) 400 J",
+          "E) 800 J"
+        ],
+        "answer": 3
+      },
+
+      {
+        "question": "69. Um mergulhador encontra-se em uma piscina. À medida que ele desce para regiões mais profundas, percebe que a pressão exercida pela água sobre seu corpo aumenta. Esse aumento da pressão ocorre principalmente porque:",
+        "options": [
+          "A) a temperatura da água aumenta com a profundidade.",
+          "B) a densidade da água diminui com a profundidade.",
+          "C) aumenta a quantidade de água acima do mergulhador.",
+          "D) a gravidade deixa de atuar na superfície.",
+          "E) a água passa a exercer força apenas para baixo."
+        ],
+        "answer": 2
+      },
+
+      {
+        "question": "70. A radioatividade possui diversas aplicações na sociedade, como em tratamentos médicos e na produção de energia. Entretanto, a exposição inadequada à radiação pode oferecer riscos aos seres vivos. Uma característica importante das radiações ionizantes é sua capacidade de:",
+        "options": [
+          "A) produzir apenas aquecimento dos materiais.",
+          "B) provocar ionização da matéria ao interagir com ela.",
+          "C) impedir completamente a passagem da luz.",
+          "D) eliminar a ação da gravidade.",
+          "E) transformar qualquer material em energia imediatamente."
+        ],
+        "answer": 1
+      }
+    ];
+
+
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const nextBtn = document.getElementById("next-btn");
+    const progressBar = document.getElementById("progress-bar");
+
+    const quizBox = document.getElementById("quiz-box");
+    const resultBox = document.getElementById("result-box");
+
+    const scoreEl = document.getElementById("score");
+    const totalEl = document.getElementById("total");
+
+    const restartBtn = document.getElementById("restart-btn");
+    const questionCounterEl =
+      document.getElementById("question-counter");
+
+    let currentQuestion = 0;
+    let score = 0;
+
+
+    totalEl.textContent = questions.length;
+
+
+    function loadQuestion() {
+
+      const q = questions[currentQuestion];
+
+      questionEl.innerHTML = q.question;
+
+      optionsEl.innerHTML = "";
+
+
+      q.options.forEach((opt, i) => {
+
+        const li = document.createElement("li");
+
+        li.textContent = opt;
+
+        li.classList.add("option");
+
+        li.addEventListener("click", () => {
+          selectOption(i);
+        });
+
+        optionsEl.appendChild(li);
+
+      });
+
+
+      nextBtn.style.display = "none";
+
+      updateProgress();
+
+
+      questionCounterEl.textContent =
+        `Questão ${currentQuestion + 1} de ${questions.length}`;
+
+    }
+
+
+    function selectOption(index) {
+
+      const q = questions[currentQuestion];
+
+      const allOptions =
+        document.querySelectorAll(".option");
+
+
+      allOptions.forEach((opt, i) => {
+
+        if (i === q.answer) {
+          opt.classList.add("correct");
+        }
+
+        if (i === index && i !== q.answer) {
+          opt.classList.add("wrong");
+        }
+
+        opt.style.pointerEvents = "none";
+
+      });
+
+
+      if (index === q.answer) {
+        score++;
+      }
+
+
+      nextBtn.style.display = "block";
+
+    }
+
+
+    nextBtn.addEventListener("click", () => {
+
+      currentQuestion++;
+
+
+      if (currentQuestion < questions.length) {
+
+        loadQuestion();
+
+      } else {
+
+        showResult();
+
+      }
+
+    });
+
+
+    function updateProgress() {
+
+      const pct =
+        ((currentQuestion) / questions.length) * 100;
+
+      progressBar.style.width = pct + "%";
+
+    }
+
+
+    function showResult() {
+
+      quizBox.classList.add("hidden");
+
+      resultBox.classList.remove("hidden");
+
+
+      scoreEl.textContent = score;
+
+
+      const percent =
+        Math.round((score / questions.length) * 100);
+
+
+      const resultBar =
+        document.getElementById("result-bar");
+
+      const resultPercent =
+        document.getElementById("result-percent");
+
+      const resultMessage =
+        document.getElementById("result-message");
+
+
+      resultBar.style.width = percent + "%";
+
+      resultPercent.textContent =
+        percent + "% de aproveitamento";
+
+
+      let msg =
+        percent >= 70
+          ? "👏 Muito bom!"
+          : "📚 Revise o conteúdo.";
+
+
+      resultMessage.textContent = msg;
+
+    }
+
+
+    restartBtn.addEventListener("click", () => {
+
+      score = 0;
+
+      currentQuestion = 0;
+
+      resultBox.classList.add("hidden");
+
+      quizBox.classList.remove("hidden");
+
+      loadQuestion();
+
+    });
+
+
+    loadQuestion();
+
+  </script>
+
+</body>
+
+</html>
